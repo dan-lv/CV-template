@@ -1,0 +1,109 @@
+@import 'tailwindcss/base';
+@import 'tailwindcss/components';
+@import 'tailwindcss/utilities';
+
+/* User */
+#cvo-body {
+    margin: 0 auto;
+    width: 100%;
+    position: relative;
+    font-family: robotocondensed,Arial,sans-serif;
+    font-size: 14px;
+    line-height: 18px;
+}
+
+.main-wrapper {
+    margin: 10px 20px;
+}
+
+#cvo-profile-wraper {
+    text-align: center;
+    padding: 10px;
+}
+
+#cvo-main {
+    display: flex;
+}
+
+#cvo-profile-fullname-wraper {
+    font-size: 15px;
+    font-weight: 700;
+    width: 100%;
+    line-height: 34px;
+    display: inline-block;
+    text-transform: uppercase;
+}
+
+.cvo-col-7 {
+    margin-left: 15px;
+}
+
+.cvo-block-body {
+    background-color: #fafafa;
+}
+
+.cvo-block-header {
+    margin: 0 0 5px;
+    font-size: 18px;
+    line-height: 32px;
+    text-transform: capitalize;
+    font-weight: 700;
+}
+
+.generate-btn {
+    background-color: #00b14f;
+    border-radius: 5px;
+    text-align: center;
+    color: #fff;
+    width: 100%;
+    margin-top: 10px;
+}
+
+.btn-wrapper {
+    width: 25%;
+    margin: 0 auto;
+}
+
+.full-wrapper {
+    padding: 15px 15px;
+}
+
+.design-input {
+    outline: 1pt dashed #77a5cc;
+}
+
+.input-tem {
+    /* line-height: 35px; */
+    border-radius: 5px;
+    margin-bottom: 10px;
+    width: 100%;
+}
+
+.d-flex {
+    display: flex;
+}
+
+.width100 {
+    width: 100%;
+}
+
+.width60 {
+    width: 60%;
+}
+
+.width40 {
+    width: 40%;
+}
+
+.text-center {
+    text-align: center;
+}
+
+#group-left {
+    margin-right: 20px;
+}
+
+#group-header {
+    justify-content: space-around;
+}
+/* Admin */
