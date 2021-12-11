@@ -20,7 +20,12 @@
                                 @endif
                             </div>
                             <div id="cvo-profile-avatar-wraper" class="profile-item">
+                                @if ($createCv)
                                 <img id="cvo-profile-avatar" src="https://www.topcv.vn/images/default-avatar.png" value="preview_avatar" alt="avatar">
+                                <input type="file" name="avatar_url"></input>
+                                @else
+                                    <img src="{{ asset($avatar_url) }}" value="preview_avatar" alt="avatar">
+                                @endif
                             </div>
                         </div>
                         <div class="cvo-block-header">

@@ -6,7 +6,7 @@
         <!-- <a class="inline-flex items-center px-1 pt-1 border-b-2 border-indigo-400 text-sm font-medium leading-5 text-gray-900 focus:outline-none focus:border-indigo-700 transition duration-150 ease-in-out">Template</a> -->
     </x-slot>
 
-    <form method="POST" action="{{ route('createCv', $templateId) }}">
+    <form method="POST" enctype="multipart/form-data" action="{{ route('createCv', $templateId) }}">
         @csrf
 
         @if (empty($templateId) || $templateId == 1)

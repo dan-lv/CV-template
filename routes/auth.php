@@ -32,6 +32,10 @@ Route::post('admin/login', [AuthenticatedSessionController::class, 'storeAdmin']
                 ->middleware('guest:admin')
                 ->name('storeAdminLogin');
 
+Route::post('admin/logout', [AuthenticatedSessionController::class, 'destroyAdmin'])
+                ->middleware('auth:admin')
+                ->name('logout');
+
 Route::get('/forgot-password', [PasswordResetLinkController::class, 'create'])
                 ->middleware('guest')
                 ->name('password.request');

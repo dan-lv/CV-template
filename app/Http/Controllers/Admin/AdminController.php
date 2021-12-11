@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\User;
+namespace App\Http\Controllers\Admin;
 
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Foundation\Bus\DispatchesJobs;
@@ -12,22 +12,15 @@ use App\Repositories\UserInfoCvRepository;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 
-class UserTemplateController extends Controller
+class AdminController extends Controller
 {
     use AuthorizesRequests, DispatchesJobs, ValidatesRequests;
 
-    public function generateTemplate($id, UserInfoCvRepository $userInfoCvRepository)
+    public function index()
     {
-        $userId = Auth::user()->id;
+        
 
-        $userInfoData = $userInfoCvRepository->getFirstBy('user_id', $userId)->toArray();
-
-        $data = array_merge($userInfoData, [
-            'templateId' => $id,
-            'createCv' => true
-        ]);
-
-        return view('dashboard')->with($data);
+        return view('admin.dashboard');
     }
 
     public function createCv(Request $request, UserInfoCvRepository $userInfoCvRepository, $templateId)
