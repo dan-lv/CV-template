@@ -12,7 +12,7 @@
             <td>{{ $user->id }}</td>
             <td>{{ $user->name }}</td>
             <td>{{ $user->email }}</td>
-            <td>
+            <td style="text-decoration: underline; color: blue;">
                 <a href="{{ route('userCv', [$user->id, 1]) }}">{{ route('userCv', [$user->id, 1]) }}</a>
             </td>
             <td class="text-center">

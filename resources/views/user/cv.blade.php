@@ -55,12 +55,12 @@
                 {{ __('Setting Color') }}
             </h2>
             <div class="preview-modal-color-selector d-flex">
-                <a class="preview-modal-cv-template-color" onclick="selectColor('2c69a5', '0')" href="javascript:void(0)">
-                    <div class="template-cv-colors" style="background-color: #2c69a5;"><i style="color: white; visibility: visible" class="fa fa-check" aria-hidden="true"></i></div>
-                </a><a class="preview-modal-cv-template-color" onclick="selectColor('c36839', '1')" href="javascript:void(0)">
-                    <div class="template-cv-colors" style="background-color: #c36839;"><i style="color: white; visibility: hidden" class="fa fa-check" aria-hidden="true"></i></div>
-                </a><a class="preview-modal-cv-template-color" onclick="selectColor('5e8b7e', '2')" href="javascript:void(0)">
-                    <div class="template-cv-colors" style="background-color: #5e8b7e;"><i style="color: white; visibility: hidden" class="fa fa-check" aria-hidden="true"></i></div>
+                <a class="preview-modal-cv-template-color" data-color="blue" href="javascript:void(0)">
+                    <div class="template-cv-colors" style="background-color: #2c69a5;"><i style="color: white; visibility: hidden" class="fa fa-check checker" aria-hidden="true"></i></div>
+                </a><a class="preview-modal-cv-template-color" data-color="brow" href="javascript:void(0)">
+                    <div class="template-cv-colors" style="background-color: #c36839;"><i style="color: white; visibility: hidden" class="fa fa-check checker" aria-hidden="true"></i></div>
+                </a><a class="preview-modal-cv-template-color" data-color="green" href="javascript:void(0)">
+                    <div class="template-cv-colors" style="background-color: #5e8b7e;"><i style="color: white; visibility: hidden" class="fa fa-check checker" aria-hidden="true"></i></div>
                 </a>
             </div>
         </div>
@@ -74,6 +74,7 @@
         <main class="full-wrapper">
             <form method="POST" enctype="multipart/form-data" @if (!empty($isAdmin)) action="{{ route('createCvFromAdmin', [$userId, $templateId]) }}" @else action="{{ route('createCv', $templateId) }}" @endif>
                 @csrf
+
                 @if ($templateId == 1)
                 @include('user.cv1')
                 @endif

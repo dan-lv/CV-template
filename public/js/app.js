@@ -5454,10 +5454,11 @@ alpinejs__WEBPACK_IMPORTED_MODULE_0__["default"].start();
 $(document).ready(function () {
   $('.preview-modal-cv-template-color').click(function () {
     var colorValue = $(this).data('color');
-    $('.color').css('color', colorValue);
-    console.log($('.color'));
-    $('.checker').css('visibility', 'hidden');
-    $(this).children('.checker').css('visibility', 'visible');
+    $('.color').removeClass('blue');
+    $('.color').removeClass('brow');
+    $('.color').removeClass('green');
+    $('.color').addClass(colorValue);
+    $('#setting-color').val(colorValue);
   });
 });
 

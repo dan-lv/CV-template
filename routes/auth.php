@@ -25,7 +25,7 @@ Route::post('/login', [AuthenticatedSessionController::class, 'store'])
                 ->middleware('guest');
 
 Route::get('admin/login', [AuthenticatedSessionController::class, 'createAdmin'])
-                ->middleware('guest:admin')
+                ->middleware('guest')
                 ->name('adminLogin');
 
 Route::post('admin/login', [AuthenticatedSessionController::class, 'storeAdmin'])

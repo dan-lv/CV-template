@@ -32258,8 +32258,16 @@ table, th, td {
   align-items: center;
 }
 
-.color {
+.blue {
   color: #2c69a5;
+}
+
+.green {
+  color: #5e8b7e;
+}
+
+.brow {
+  color: #c36839;
 }
 
 /* Admin */

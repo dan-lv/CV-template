@@ -13,10 +13,7 @@
                 <!-- Navigation Links -->
                 <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
                     <x-nav-link  :active="request()->routeIs('dashboard')">
-                        {{ __('Manage User') }}
-                    </x-nav-link>
-                    <x-nav-link >
-                        {{ __('Manage Template') }}
+                        {{ __('Manage User & Template') }}
                     </x-nav-link>
                 </div>
             </div>

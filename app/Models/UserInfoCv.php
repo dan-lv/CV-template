@@ -34,6 +34,8 @@ class UserInfoCv extends Model
         'activities',
         'certifications',
         'skill',
-        'hobit'
+        'hobit',
+        'set_color_temp1',
+        'set_color_temp2',
     ];
 }

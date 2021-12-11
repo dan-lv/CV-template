@@ -32,6 +32,8 @@ class CreateUserInfoCvTable extends Migration
             $table->text('certifications')->nullable();
             $table->text('skill')->nullable();
             $table->text('hobit')->nullable();
+            $table->text('set_color_temp1')->nullable();
+            $table->text('set_color_temp2')->nullable();
             $table->timestamps();
         });
     }
