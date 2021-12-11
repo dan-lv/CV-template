@@ -28,7 +28,7 @@
                                 @endif
                             </div>
                         </div>
-                        <div class="cvo-block-header">
+                        <div class="cvo-block-header color">
                             <span id="cvo-profile-blocktitle">Thông tin liên hệ</span>
                         </div>
                         <div class="cvo-block-body">
@@ -86,7 +86,7 @@
                 <div id="group-bottom-left">
                     <div class="section-line"></div>
                     <div id="cvo-skillgroup" class="cvo-block">
-                        <div class="cvo-block-header"><span id="cvo-skillgroup-blocktitle">Các kỹ năng</span></div>
+                        <div class="cvo-block-header color"><span id="cvo-skillgroup-blocktitle">Các kỹ năng</span></div>
                         <div class="block-content">
                             <div id="skill-table" class="cvo-block-content">
 
@@ -104,7 +104,7 @@
                     </div>
                     <div class="section-line"></div>
                     <div id="cvo-interests" class="cvo-block">
-                        <div class="cvo-block-header"><span id="cvo-interest-blocktitle">Sở thích</span></div>
+                        <div class="cvo-block-header color"><span id="cvo-interest-blocktitle">Sở thích</span></div>
                         <div class="block-content">
                             @if ($createCv)
                                 <input placeholder="Đọc sách" name="hobit" value="{{$hobit ?? ''}}" class="design-input input-tem">
@@ -120,7 +120,7 @@
             <div class="cvo-col-7 width100">
                 <div id="group-right">
                     <div id="cvo-objective" class="cvo-block">
-                        <div class="cvo-block-header">
+                        <div class="cvo-block-header color">
                             <span id="cvo-objective-blocktitle">Mục tiêu nghề nghiệp</span>
                         </div>
                         <div class="cvo-block-body">
@@ -133,7 +133,7 @@
                     </div>
                     <div class="section-line"></div>
                     <div id="cvo-education" class="cvo-block">
-                        <div class="cvo-block-header">
+                        <div class="cvo-block-header color">
                             <span id="cvo-education-blocktitle">Học vấn</span>
                         </div>
                         <div id="education-table" class="cvo-block-body">
@@ -148,7 +148,7 @@
                     </div>
                     <div class="section-line"></div>
                     <div id="cvo-experience" class="cvo-block">
-                        <div class="cvo-block-header">
+                        <div class="cvo-block-header color">
                             <span id="cvo-experience-blocktitle">Kinh nghiệm làm việc</span>
                         </div>
                         <div id="experience-table" class="cvo-block-body">
@@ -163,7 +163,7 @@
                     </div>
                     <div class="section-line"></div>
                     <div id="cvo-activity" class="cvo-block">
-                        <div class="cvo-block-header"><span id="cvo-activity-blocktitle">Hoạt động</span></div>
+                        <div class="cvo-block-header color"><span id="cvo-activity-blocktitle">Hoạt động</span></div>
                         <div id="activity-table" class="cvo-block-body">
                             <div class="row ">
                                 @if ($createCv)
@@ -177,7 +177,7 @@
                     </div>
                     <div class="section-line"></div>
                     <div id="cvo-award" class="cvo-block">
-                        <div class="cvo-block-header"><span id="cvo-award-blocktitle">Giải thưởng, Chứng chỉ</span></div>
+                        <div class="cvo-block-header color"><span id="cvo-award-blocktitle">Giải thưởng, Chứng chỉ</span></div>
                         <div id="award-table" class="cvo-block-body">
                             <div>
                                 @if ($createCv)

@@ -9,6 +9,7 @@ use Illuminate\Routing\Controller as BaseController;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Repositories\UserInfoCvRepository;
+use App\Repositories\UserRepository;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 
@@ -16,49 +17,30 @@ class AdminController extends Controller
 {
     use AuthorizesRequests, DispatchesJobs, ValidatesRequests;
 
+    protected $userRepository;
+
+    public function __construct(UserRepository $userRepository)
+    {
+        $this->userRepository = $userRepository;
+    }
+
     public function index()
     {
-        
+        $userList = $this->userRepository->getAll();
 
-        return view('admin.dashboard');
+        $data = [
+            'userList' => $userList
+        ];
+
+        return view('layouts.admin.app')->with($data);
     }
 
-    public function createCv(Request $request, UserInfoCvRepository $userInfoCvRepository, $templateId)
+    public function delete($userId)
     {
-        $userId = Auth::user()->id;
-        $params = $request->input();
+        $user = $this->userRepository->find($userId);
 
-        if ($request->hasFile('avatar_url')) {
-            $avatar = $request->avatar_url;
+        $result = $this->userRepository->delete($user);
 
-            $fileName = $avatar->getClientOriginalName();
-            $storagePath = 'avatar/' . $userId;
-            Storage::putFileAs($storagePath, $avatar, $fileName);
-
-            $params['avatar_url'] = $fileName;
-        }
-
-        unset($params['_token']);
-
-        $userInfoCvRepository->updateOrCreate($params, ['user_id' => $userId]);
-
-        return redirect()->route('userCv', [
-            'userId' => $userId,
-            'templateId' => $templateId
-        ]);
-    }
-
-    public function generateCv($userId, $templateId, UserInfoCvRepository $userInfoCvRepository)
-    {
-        $userInfoData = $userInfoCvRepository->getFirstBy('user_id', $userId)->toArray();
-        $storagePath = 'images/avatar/' . $userId;
-
-        $userInfoData['avatar_url'] = $storagePath . '/' . $userInfoData['avatar_url'];
-        $data = array_merge($userInfoData, [
-            'templateId' => $templateId,
-            'createCv' => false
-        ]);
-
-        return view('user.cv')->with($data);
+        return redirect()->route('admin.dashboard');
     }
 }

@@ -1,8 +1,27 @@
-<x-app-layout>
-    <x-slot name="header">
-        <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-            {{ __('Dashboard') }}
-        </h2>
-        <!-- <a class="inline-flex items-center px-1 pt-1 border-b-2 border-indigo-400 text-sm font-medium leading-5 text-gray-900 focus:outline-none focus:border-indigo-700 transition duration-150 ease-in-out">Template</a> -->
-    </x-slot>
-</x-app-layout>
+<div>
+    <table style="width: 100%;">
+        <tr>
+            <th>Id</th>
+            <th>Name</th>
+            <th>Email</th>
+            <th>Template</th>
+            <th>Action</th>
+        </tr>
+        @foreach ($userList as $user)
+        <tr>
+            <td>{{ $user->id }}</td>
+            <td>{{ $user->name }}</td>
+            <td>{{ $user->email }}</td>
+            <td>
+                <a href="{{ route('userCv', [$user->id, 1]) }}">{{ route('userCv', [$user->id, 1]) }}</a>
+            </td>
+            <td class="text-center">
+                <form method="POST" action="{{ route('deleteUser', $user->id) }}">
+                    @csrf
+                    <button type="submit" class="generate-btn width60">Delete User</button>
+                </form>
+            </td>
+        </tr>
+        @endforeach
+    </table>
+</div>

@@ -32243,6 +32243,25 @@ select {
   justify-content: space-around;
 }
 
+table, th, td {
+  border: 1px solid black;
+  border-collapse: collapse;
+}
+
+.template-cv-colors {
+  width: 24px;
+  height: 24px;
+  border-radius: 12px;
+  margin-right: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.color {
+  color: #2c69a5;
+}
+
 /* Admin */
 
 @media (min-width: 640px) {

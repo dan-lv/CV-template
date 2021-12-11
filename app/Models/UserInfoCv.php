@@ -15,4 +15,25 @@ class UserInfoCv extends Model
 
     protected $table = 'user_info_cv';
 
+    protected $fillable = [
+        'user_id',
+        'name',
+        'avatar_url',
+        'name',
+        'avatar_url',
+        'job',
+        'gender',
+        'birthday',
+        'address',
+        'phone',
+        'email',
+        'website',
+        'career_goals',
+        'education',
+        'work_experience',
+        'activities',
+        'certifications',
+        'skill',
+        'hobit'
+    ];
 }

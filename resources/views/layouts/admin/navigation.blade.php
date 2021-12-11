@@ -12,11 +12,11 @@
 
                 <!-- Navigation Links -->
                 <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
-                    <x-nav-link :href="route('template', 1)" :active="request()->routeIs('dashboard')">
-                        {{ __('Template 1') }}
+                    <x-nav-link  :active="request()->routeIs('dashboard')">
+                        {{ __('Manage User') }}
                     </x-nav-link>
-                    <x-nav-link :href="route('template', 2)">
-                        {{ __('Template 2') }}
+                    <x-nav-link >
+                        {{ __('Manage Template') }}
                     </x-nav-link>
                 </div>
             </div>
@@ -38,10 +38,10 @@
 
                     <x-slot name="content">
                         <!-- Authentication -->
-                        <form method="POST" action="{{ route('logout') }}">
+                        <form method="POST" action="{{ route('adminLogout') }}">
                             @csrf
 
-                            <x-dropdown-link :href="route('logout')"
+                            <x-dropdown-link :href="route('adminLogout')"
                                     onclick="event.preventDefault();
                                                 this.closest('form').submit();">
                                 {{ __('Log Out') }}

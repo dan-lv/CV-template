@@ -21,18 +21,19 @@ Route::get('/', function () {
 });
     
 Route::get('/dashboard', function () {
-    return view('dashboard')->with([
-        'templateId' => 1,
-        'createCv' => true
-    ]);
+    return redirect()->route('template', 1);
 })->middleware(['auth'])->name('dashboard');
 
 Route::get('/template/{id}', [UserTemplateController::class, 'generateTemplate'])->middleware(['auth'])->name('template');
 
 Route::post('/create/cv/{id}', [UserTemplateController::class, 'createCv'])->middleware('auth')->name('createCv');
 
+Route::post('admin/create/cv/{userId}/{id}', [UserTemplateController::class, 'createCvFromAdmin'])->name('createCvFromAdmin');
+
+Route::post('delete/user/{userId}', [AdminController::class, 'delete'])->name('deleteUser');
+
 Route::get('/{userId}/cv/{templateId}', [UserTemplateController::class, 'generateCv'])->name('userCv');
 
-Route::get('/admin/dashboard', [AdminController::class, 'index'])->name('admin.dashboard');
+Route::get('/admin/dashboard', [AdminController::class, 'index'])->middleware('auth:admin')->name('admin.dashboard');
 
 require __DIR__.'/auth.php';
