@@ -431,88 +431,52 @@
         </div>
         @endif
 
-        <div class="max-w-6xl mx-auto sm:px-6 lg:px-8">
-            <div>
-                <div class="slideshow-container">
+        @if (empty($userName))
+        <div class="text-center text-sm text-gray-500 sm:text-left">
+            Cannot find any cv of this user
+        </div>
+        @endif
 
-                    <!-- Full-width images with number and caption text -->
-                    <div class="mySlides fade">
-                        <div class="numbertext">1 / 3</div>
-                        <img src="{{ asset('images/slides/slide1.jpg') }}" style="width:100%">
-                        <div class="text">Caption Text</div>
-                    </div>
-
-                    <div class="mySlides fade">
-                        <div class="numbertext">2 / 3</div>
-                        <img src="{{ asset('images/slides/slide2.jpg') }}" style="width:100%">
-                        <div class="text">Caption Two</div>
-                    </div>
-
-                    <div class="mySlides fade">
-                        <div class="numbertext">3 / 3</div>
-                        <img src="{{ asset('images/slides/slide3.jpg') }}" style="width:100%">
-                        <div class="text">Caption Three</div>
-                    </div>
-
-                    <!-- Next and previous buttons -->
-                    <a class="prev" onclick="plusSlides(-1)">&#10094;</a>
-                    <a class="next" onclick="plusSlides(1)">&#10095;</a>
+        @if (!empty($userName))
+        <div>
+            <div class="group_result">
+                <div>
+                    <span>1.</span>
+                    <span>
+                        <a href="{{ route('userCv', [
+                            'userName' => $userName,
+                            'templateId' => 1
+                        ]) }}" class="design_link">{{ route('userCv', [
+                            'userName' => $userName,
+                            'templateId' => 1
+                        ]) }}</a>
+                    </span>
                 </div>
-                <br>
-
-                <!-- The dots/circles -->
-                <div style="text-align:center">
-                    <span class="dot" onclick="currentSlide(1)"></span>
-                    <span class="dot" onclick="currentSlide(2)"></span>
-                    <span class="dot" onclick="currentSlide(3)"></span>
+                <div>
+                    <img src="{{ asset('images/template_image.png') }}">
                 </div>
             </div>
-
-            <div class="flex justify-center mt-4 sm:items-center sm:justify-between">
-                <div class="text-center text-sm text-gray-500 sm:text-left">
+            <div class="group_result">
+                <div>
+                    <span>2.</span>
+                    <span>
+                        <a href="{{ route('userCv', [
+                        'userName' => $userName,
+                        'templateId' => 2
+                    ]) }}" class="design_link">{{ route('userCv', [
+                        'userName' => $userName,
+                        'templateId' => 2
+                    ]) }}</a>
+                    </span>
                 </div>
-
-                <div class="ml-4 text-center text-sm text-gray-500 sm:text-right sm:ml-0">
-                    Laravel v{{ Illuminate\Foundation\Application::VERSION }} (PHP v{{ PHP_VERSION }})
+                <div>
+                    <img src="{{ asset('images/template_image.png') }}">
                 </div>
             </div>
         </div>
+        @endif
     </div>
 
-    <script>
-        var slideIndex = 1;
-        showSlides(slideIndex);
-
-        // Next/previous controls
-        function plusSlides(n) {
-            showSlides(slideIndex += n);
-        }
-
-        // Thumbnail image controls
-        function currentSlide(n) {
-            showSlides(slideIndex = n);
-        }
-
-        function showSlides(n) {
-            var i;
-            var slides = document.getElementsByClassName("mySlides");
-            var dots = document.getElementsByClassName("dot");
-            if (n > slides.length) {
-                slideIndex = 1
-            }
-            if (n < 1) {
-                slideIndex = slides.length
-            }
-            for (i = 0; i < slides.length; i++) {
-                slides[i].style.display = "none";
-            }
-            for (i = 0; i < dots.length; i++) {
-                dots[i].className = dots[i].className.replace(" active", "");
-            }
-            slides[slideIndex - 1].style.display = "block";
-            dots[slideIndex - 1].className += " active";
-        }
-    </script>
 </body>
 
 </html>

@@ -9,6 +9,7 @@ use Illuminate\Routing\Controller as BaseController;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Repositories\UserInfoCvRepository;
+use App\Repositories\UserRepository;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 
@@ -37,7 +38,7 @@ class UserTemplateController extends Controller
         return view('dashboard')->with($data);
     }
 
-    public function createCv(Request $request, UserInfoCvRepository $userInfoCvRepository, $templateId)
+    public function createCv(Request $request, UserRepository $userRepository, UserInfoCvRepository $userInfoCvRepository, $templateId)
     {
         $userId = Auth::user()->id;
         $params = $request->input();
@@ -55,9 +56,9 @@ class UserTemplateController extends Controller
         unset($params['_token']);
 
         $userInfoCvRepository->updateOrCreate(['user_id' => $userId], $params);
-
+        $userName = $userRepository->find($userId)->name;
         return redirect()->route('userCv', [
-            'userId' => $userId,
+            'userName' => $userName,
             'templateId' => $templateId
         ]);
     }
@@ -86,8 +87,9 @@ class UserTemplateController extends Controller
         ]);
     }
 
-    public function generateCv(UserInfoCvRepository $userInfoCvRepository, $userId, $templateId)
+    public function generateCv(UserRepository $userRepository, UserInfoCvRepository $userInfoCvRepository, $userName, $templateId)
     {
+        $userId = $userRepository->getFirstBy('name', $userName)->id;
         $userInfoData = $userInfoCvRepository->getFirstBy('user_id', $userId)->toArray();
         $storagePath = 'images/avatar/' . $userId;
 
@@ -107,5 +109,19 @@ class UserTemplateController extends Controller
         }
 
         return view('user.cv')->with($data);
+    }
+
+    public function searchCv(Request $request, UserRepository $userRepository)
+    {
+        $params = $request->input();
+
+        $user = $userRepository->getFirstBy('name', $params['search_by_user_name']);
+        
+        $userName = empty($user) ? null : $params['search_by_user_name'];
+
+        // dd($userName);
+        return view('searchResult')->with([
+            'userName' => $userName
+        ]);
     }
 }
