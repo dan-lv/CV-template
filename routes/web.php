@@ -16,8 +16,8 @@ use App\Http\Controllers\Admin\AdminController;
 */
 
 Route::get('/', function () {
-    return redirect()->route('login');
-    // return view('welcome');
+    // return redirect()->route('login');
+    return view('welcome');
 });
     
 Route::get('/dashboard', function () {
@@ -32,8 +32,10 @@ Route::post('admin/create/cv/{userId}/{id}', [UserTemplateController::class, 'cr
 
 Route::post('delete/user/{userId}', [AdminController::class, 'delete'])->name('deleteUser');
 
-Route::get('/{userId}/cv/{templateId}', [UserTemplateController::class, 'generateCv'])->name('userCv');
+Route::get('/{userName}/cv/{templateId}', [UserTemplateController::class, 'generateCv'])->name('userCv');
 
 Route::get('/admin/dashboard', [AdminController::class, 'index'])->middleware('auth:admin')->name('admin.dashboard');
+
+Route::post('search/cv', [UserTemplateController::class, 'searchCv'])->name('searchCv');
 
 require __DIR__.'/auth.php';

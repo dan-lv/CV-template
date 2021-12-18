@@ -4,7 +4,12 @@
     <div id="group-header" class="d-flex">
         <div class="cvo-col-7">
             <div id="cvo-profile-avatar-wraper" class="profile-item" style="margin-bottom: 10px;">
+                @if ($createCv)
                 <img style="width: 200px;" id="cvo-profile-avatar" src="https://www.topcv.vn/images/default-avatar.png" value="preview_avatar" alt="avatar">
+                <input type="file" name="avatar_url"></input>
+                @else
+                <img style="width: 200px;" src="{{ asset($avatar_url) }}" value="preview_avatar" alt="avatar">
+                @endif
             </div>
             <div class="cvo-profile-fullname-and-title">
                 <div id="cvo-profile-fullname-wraper" class="text-center">
