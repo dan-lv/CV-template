@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\User\UserTemplateController;
+use App\Http\Controllers\User\PostController;
 use App\Http\Controllers\Admin\AdminController;
 
 /*
@@ -37,5 +38,10 @@ Route::get('/{userName}/cv/{templateId}', [UserTemplateController::class, 'gener
 Route::get('/admin/dashboard', [AdminController::class, 'index'])->middleware('auth:admin')->name('admin.dashboard');
 
 Route::post('search/cv', [UserTemplateController::class, 'searchCv'])->name('searchCv');
+
+Route::get('/{userName}/post/{postId}', [PostController::class, 'generateCv'])->name('userCv');
+
+Route::get('/create/post', [PostController::class, 'index'])->middleware('auth')->name('createPost');
+Route::post('/create/post', [PostController::class, 'savePost'])->middleware('auth')->name('savePost');
 
 require __DIR__.'/auth.php';

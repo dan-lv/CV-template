@@ -32420,6 +32420,11 @@ td {
   margin-bottom: 15px;
 }
 
+.post_form {
+  width: 840px;
+  margin: auto;
+}
+
 /* Admin */
 
 @media (min-width: 640px) {

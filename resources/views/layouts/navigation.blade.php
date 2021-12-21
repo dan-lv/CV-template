@@ -18,6 +18,12 @@
                     <x-nav-link :href="route('template', 2)">
                         {{ __('Template 2') }}
                     </x-nav-link>
+                    <x-nav-link :href="route('createPost')">
+                        {{ __('Create Post') }}
+                    </x-nav-link>
+                    <x-nav-link :href="route('template', 2)">
+                        {{ __('Create Category') }}
+                    </x-nav-link>
                 </div>
             </div>
 
