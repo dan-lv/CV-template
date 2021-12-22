@@ -205,10 +205,10 @@
                                 @foreach ($category->posts as $post)
                                 <li class="design_link" style="margin-top: 10px;">
                                     <a href="{{ route('userPost', [
-                                        'userName' => \Auth::user()->name,
+                                        'userName' => $userId,
                                         'postId' => $post->id   
                                     ]) }}">{{ route('userPost', [
-                                        'userName' => \Auth::user()->name,
+                                        'userName' => $userId,
                                         'postId' => $post->id   
                                     ]) }}</a>
                                 </li>

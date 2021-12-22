@@ -26,7 +26,7 @@ class ViewServiceProvider extends ServiceProvider
     public function boot()
     {
         // Using class based composers...
-        View::composer(['user.cv1', 'user.cv2'], CategoryPostComposer::class);
+        // View::composer(['user.cv1', 'user.cv2'], CategoryPostComposer::class);
 
     }
 }
