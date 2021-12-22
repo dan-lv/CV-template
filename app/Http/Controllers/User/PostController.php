@@ -52,8 +52,6 @@ class PostController extends Controller
 
     public function generatePost($userName, $postId, PostRepository $postRepository)
     {
-        // $userId = Auth::user()->id;
-
         $post = $postRepository->getFirstBy('id', $postId);
 
         return view('user.userPost')->with([
