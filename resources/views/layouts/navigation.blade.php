@@ -21,7 +21,7 @@
                     <x-nav-link :href="route('createPost')">
                         {{ __('Create Post') }}
                     </x-nav-link>
-                    <x-nav-link :href="route('template', 2)">
+                    <x-nav-link :href="route('createCategory')">
                         {{ __('Create Category') }}
                     </x-nav-link>
                 </div>

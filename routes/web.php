@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\User\UserTemplateController;
 use App\Http\Controllers\User\PostController;
+use App\Http\Controllers\User\CategoryController;
 use App\Http\Controllers\Admin\AdminController;
 
 /*
@@ -39,9 +40,12 @@ Route::get('/admin/dashboard', [AdminController::class, 'index'])->middleware('a
 
 Route::post('search/cv', [UserTemplateController::class, 'searchCv'])->name('searchCv');
 
-Route::get('/{userName}/post/{postId}', [PostController::class, 'generateCv'])->name('userCv');
+Route::get('/{userName}/post/{postId}', [PostController::class, 'generatePost'])->name('userPost');
 
 Route::get('/create/post', [PostController::class, 'index'])->middleware('auth')->name('createPost');
 Route::post('/create/post', [PostController::class, 'savePost'])->middleware('auth')->name('savePost');
+
+Route::get('/create/category', [CategoryController::class, 'index'])->middleware('auth')->name('createCategory');
+Route::post('/create/category', [CategoryController::class, 'saveCategory'])->middleware('auth')->name('saveCategory');
 
 require __DIR__.'/auth.php';

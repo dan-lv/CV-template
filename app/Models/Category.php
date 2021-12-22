@@ -4,7 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Post extends Model
+class Category extends Model
 {
     /**
      * The attributes that are mass assignable.
@@ -13,17 +13,15 @@ class Post extends Model
      */
     protected $guarded = [];
 
-    protected $table = 'posts';
+    protected $table = 'categories';
 
     protected $fillable = [
         'user_id',
         'title',
-        'content',
-        'category_id',
     ];
 
-    public function category()
+    public function posts()
     {
-        return $this->belongsTo(Category::class, 'category_id', 'id');
+        return $this->hasMany(Post::class, 'category_id', 'id');
     }
 }

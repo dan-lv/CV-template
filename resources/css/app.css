@@ -294,5 +294,22 @@ td {
     margin: auto;
 }
 
+.alert-danger {
+    background-color: red;
+    color: white;
+    margin-bottom: 10px;
+}
+
+.alert-success {
+    background-color: green;
+    color: white;
+    margin-bottom: 10px;
+}
+
+.post_title {
+    font-size: 36px;
+    text-align: center;
+}
+
 
 /* Admin */

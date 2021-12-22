@@ -6,11 +6,20 @@
         @csrf
 
         <div class="post_form">
+            @if ($errors->any())
+            <div class="alert alert-danger">
+                <ul>
+                    @foreach ($errors->all() as $error)
+                    <li>{{ $error }}</li>
+                    @endforeach
+                </ul>
+            </div>
+            @endif
             @if (isset($status) && $status == 'error')
-                <div>Create post failed</div>
+            <div class="alert-danger">Create post failed</div>
             @endif
             @if (isset($status) && $status == 'success')
-                <div>Create post success</div>
+            <div class="alert-success">Create post success</div>
             @endif
             <div>
                 <div>Title</div>
@@ -18,12 +27,14 @@
                     <input class="width100" name="title" value="">
                 </div>
             </div>
-    
             <div>
                 <div style="margin-top: 10px;">Category</div>
                 <div>
-                    <select class="width100">
+                    <select class="width100" name="category_id">
                         <option value=""></option>
+                        @foreach ($categoryList as $category)
+                        <option value="{{ $category->id }}" @if (old('category_id') == $category->id) selected @endif>{{ $category->title }}</option>
+                        @endforeach
                     </select>
                 </div>
             </div>
@@ -31,7 +42,7 @@
             <div>
                 <div style="margin-top: 10px;">Content</div>
                 <div>
-                    <input class="width100" name="content"> 
+                    <input class="width100" name="content">
                 </div>
             </div>
             <div class="btn-wrapper">

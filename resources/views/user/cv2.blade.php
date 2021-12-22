@@ -178,4 +178,30 @@
             </div>
         </div>
     </div>
+    <div id="cvo-award" class="cvo-block" style="margin-left: 15px;">
+        <div class="cvo-block-header color {{$set_color_temp2 ?? '' }}"><span id="cvo-award-blocktitle">Blog</span></div>
+
+        @foreach ($categoryPost as $category)
+        @if (!$category->posts->isEmpty())
+        <div>Category: {{ $category->title }}</div>
+        <div id="award-table" class="cvo-block-body">
+            <ul>
+                @foreach ($category->posts as $post)
+                <li class="design_link" style="margin-top: 10px;">
+                    <a href="{{ route('userPost', [
+                                        'userName' => \Auth::user()->name,
+                                        'postId' => $post->id   
+                                    ]) }}">{{ route('userPost', [
+                                        'userName' => \Auth::user()->name,
+                                        'postId' => $post->id   
+                                    ]) }}</a>
+                </li>
+                @endforeach
+            </ul>
+        </div>
+        @endif
+        @endforeach
+        <div style="clear: both"></div>
+    </div>
+    <div class="section-line"></div>
 </div>
