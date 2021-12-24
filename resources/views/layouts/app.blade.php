@@ -18,7 +18,7 @@
 
     <!-- Scripts -->
     <script src="{{ asset('js/app.js') }}" defer></script>
-
+    <script src="//cdn.ckeditor.com/4.17.1/full/ckeditor.js"></script>
 </head>
 
 <body class="font-sans antialiased">
@@ -39,4 +39,9 @@
     </div>
 </body>
 
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('.ckeditor').ckeditor();
+    });
+</script>
 </html>
