@@ -42,7 +42,7 @@
             <div>
                 <div style="margin-top: 10px;">Content</div>
                 <div>
-                    <input class="width100" name="content">
+                    <textarea class="width100 ckeditor" name="content">{{ old('content') ?? '' }}</textarea>
                 </div>
             </div>
             <div class="btn-wrapper">

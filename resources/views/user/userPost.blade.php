@@ -28,7 +28,7 @@
         <main class="full-wrapper">
             <h1 class="post_title">{{ $userPost->title }}</h1>
             
-            <div class="post_content">{{ $userPost->content }}</div>
+            <div class="post_content">{!! $userPost->content !!}</div>
         </main>
     </div>
 </body>
