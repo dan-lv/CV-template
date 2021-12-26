@@ -191,10 +191,7 @@
                     <a href="{{ route('userPost', [
                                         'userName' => $userId,
                                         'postId' => $post->id   
-                                    ]) }}">{{ route('userPost', [
-                                        'userName' => $userId,
-                                        'postId' => $post->id   
-                                    ]) }}</a>
+                                    ]) }}">{{ $post->title }}</a>
                 </li>
                 @endforeach
             </ul>
