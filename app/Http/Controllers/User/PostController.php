@@ -50,9 +50,11 @@ class PostController extends Controller
         ]);
     }
 
-    public function generatePost($userName, $postId, PostRepository $postRepository)
+    public function generatePost($userId, $postId, PostRepository $postRepository, UserRepository $userRepository)
     {
-        $post = $postRepository->getFirstBy('id', $postId);
+        $userRepository->findOrFail($userId);
+        $post = $postRepository->getPostByUserAndPostId($userId, $postId);
+        if (empty($post)) return abort(404);
 
         return view('user.userPost')->with([
             'userPost' => $post
