@@ -26,7 +26,7 @@ class AdminController extends Controller
 
     public function index()
     {
-        $userList = $this->userRepository->getAll();
+        $userList = $this->userRepository->make(['userCvs'])->get();
 
         $data = [
             'userList' => $userList

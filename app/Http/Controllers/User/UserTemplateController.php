@@ -20,6 +20,8 @@ class UserTemplateController extends Controller
 
     public function generateTemplate($id, UserInfoCvRepository $userInfoCvRepository, CategoryRepository $categoryRepository)
     {
+        if (!in_array($id, [1, 2])) return abort(404);
+
         $userId = Auth::user()->id;
 
         $userInfoData = optional($userInfoCvRepository->getFirstBy('user_id', $userId))->toArray();
@@ -95,8 +97,11 @@ class UserTemplateController extends Controller
 
     public function generateCv(UserRepository $userRepository, UserInfoCvRepository $userInfoCvRepository, CategoryRepository $categoryRepository, $userName, $templateId)
     {
-        $userId = $userRepository->getFirstBy('name', $userName)->id;
-        $userInfoData = $userInfoCvRepository->getFirstBy('user_id', $userId)->toArray();
+        if (!in_array($templateId, [1, 2])) return abort(404);
+        $userId = optional($userRepository->getFirstBy('name', $userName))->id;
+        if (empty($userId)) return abort(404);
+        $userInfoData = optional($userInfoCvRepository->getFirstBy('user_id', $userId))->toArray();
+        if (empty($userInfoData)) return abort(404);
         $storagePath = 'images/avatar/' . $userId;
         $categoryPost = $categoryRepository->getManyBy('user_id', $userId, ['posts']);
 
@@ -129,7 +134,6 @@ class UserTemplateController extends Controller
         
         $userName = empty($user) ? null : $params['search_by_user_name'];
 
-        // dd($userName);
         return view('searchResult')->with([
             'userName' => $userName
         ]);
