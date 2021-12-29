@@ -8,7 +8,7 @@
                 <img style="width: 200px;" id="cvo-profile-avatar" src="https://www.topcv.vn/images/default-avatar.png" value="preview_avatar" alt="avatar">
                 <input type="file" name="avatar_url"></input>
                 @else
-                <img style="width: 200px;" src="{{ asset($avatar_url) }}" value="preview_avatar" alt="avatar">
+                <img style="width: 200px;" src="{{ $avatar_url ? asset($avatar_url) : 'https://www.topcv.vn/images/default-avatar.png' }}" value="preview_avatar" alt="avatar">
                 @endif
             </div>
             <div class="cvo-profile-fullname-and-title">
