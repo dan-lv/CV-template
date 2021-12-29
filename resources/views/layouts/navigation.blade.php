@@ -24,6 +24,9 @@
                     <x-nav-link :href="route('createCategory')">
                         {{ __('Create Category') }}
                     </x-nav-link>
+                    <x-nav-link :href="route('manageCategory')">
+                        {{ __('Manage Category') }}
+                    </x-nav-link>
                 </div>
             </div>
 

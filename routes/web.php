@@ -45,7 +45,11 @@ Route::get('/{userName}/post/{postId}', [PostController::class, 'generatePost'])
 Route::get('/create/post', [PostController::class, 'index'])->middleware('auth')->name('createPost');
 Route::post('/create/post', [PostController::class, 'savePost'])->middleware('auth')->name('savePost');
 
+Route::get('/category', [CategoryController::class, 'manageCategory'])->middleware('auth')->name('manageCategory');
 Route::get('/create/category', [CategoryController::class, 'index'])->middleware('auth')->name('createCategory');
 Route::post('/create/category', [CategoryController::class, 'saveCategory'])->middleware('auth')->name('saveCategory');
+Route::get('/edit/category/{categoryId}', [CategoryController::class, 'editCategory'])->middleware('auth')->name('editCategory');
+Route::post('/delete/category/{categoryId}', [CategoryController::class, 'deleteCategory'])->middleware('auth')->name('deleteCategory');
+Route::post('/update/category/{categoryId}', [CategoryController::class, 'updateCategory'])->middleware('auth')->name('updateCategory');
 
 require __DIR__.'/auth.php';

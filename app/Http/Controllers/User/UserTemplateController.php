@@ -13,6 +13,7 @@ use App\Repositories\UserRepository;
 use App\Repositories\CategoryRepository;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Str;
 
 class UserTemplateController extends Controller
 {
@@ -66,7 +67,7 @@ class UserTemplateController extends Controller
         $userInfoCvRepository->updateOrCreate(['user_id' => $userId], $params);
         $userName = $userRepository->find($userId)->name;
         return redirect()->route('userCv', [
-            'userName' => $userName,
+            'userName' => Str::slug($userName),
             'templateId' => $templateId
         ]);
     }
@@ -98,6 +99,7 @@ class UserTemplateController extends Controller
     public function generateCv(UserRepository $userRepository, UserInfoCvRepository $userInfoCvRepository, CategoryRepository $categoryRepository, $userName, $templateId)
     {
         if (!in_array($templateId, [1, 2])) return abort(404);
+        $userName = str_replace('-', ' ', $userName);
         $userId = optional($userRepository->getFirstBy('name', $userName))->id;
         if (empty($userId)) return abort(404);
         $userInfoData = optional($userInfoCvRepository->getFirstBy('user_id', $userId))->toArray();
@@ -105,7 +107,9 @@ class UserTemplateController extends Controller
         $storagePath = 'images/avatar/' . $userId;
         $categoryPost = $categoryRepository->getManyBy('user_id', $userId, ['posts']);
 
-        $userInfoData['avatar_url'] = $storagePath . '/' . $userInfoData['avatar_url'];
+        if (!empty($userInfoData['avatar_url'])) {
+            $userInfoData['avatar_url'] = $storagePath . '/' . $userInfoData['avatar_url'];
+        }
         if (Auth::guard('admin')->check()) {
             $data = array_merge($userInfoData, [
                 'templateId' => $templateId,
