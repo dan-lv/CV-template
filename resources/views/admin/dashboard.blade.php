@@ -14,7 +14,7 @@
             <td>{{ $user->email }}</td>
             <td style="text-decoration: underline; color: blue;">
                 @if (!$user->userCvs->isEmpty())
-                <a href="{{ route('userCv', [$user->name, 1]) }}">{{ route('userCv', [$user->name, 1]) }}</a>
+                <a href="{{ route('userCv', [Str::slug($user->name), 1]) }}">{{ route('userCv', [Str::slug($user->name), 1]) }}</a>
                 @endif
             </td>
             <td class="text-center">

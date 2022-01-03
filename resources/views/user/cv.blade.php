@@ -37,10 +37,10 @@
 
                     <!-- Navigation Links -->
                     <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
-                        <x-nav-link :href="route('userCv', [$userId, 1])" :active="request()->routeIs('dashboard')">
+                        <x-nav-link :href="route('userCv', [Str::slug($userName), 1])" :active="request()->routeIs('dashboard')">
                             {{ __('Template 1') }}
                         </x-nav-link>
-                        <x-nav-link :href="route('userCv', [$userId, 2])">
+                        <x-nav-link :href="route('userCv', [Str::slug($userName), 2])">
                             {{ __('Template 2') }}
                         </x-nav-link>
                     </div>
@@ -72,7 +72,7 @@
 
         <!-- Page Content -->
         <main class="full-wrapper">
-            <form method="POST" enctype="multipart/form-data" @if (!empty($isAdmin)) action="{{ route('createCvFromAdmin', [$userId, $templateId]) }}" @else action="{{ route('createCv', $templateId) }}" @endif>
+            <form method="POST" enctype="multipart/form-data" @if (!empty($isAdmin)) action="{{ route('createCvFromAdmin', [Str::slug($userName), $templateId]) }}" @else action="{{ route('createCv', $templateId) }}" @endif>
                 @csrf
 
                 @if ($templateId == 1)

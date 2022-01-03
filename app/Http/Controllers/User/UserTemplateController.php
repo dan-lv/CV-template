@@ -72,9 +72,11 @@ class UserTemplateController extends Controller
         ]);
     }
 
-    public function createCvFromAdmin(Request $request, UserInfoCvRepository $userInfoCvRepository, $userId, $templateId)
+    public function createCvFromAdmin(Request $request, UserInfoCvRepository $userInfoCvRepository, UserRepository $userRepository, $userName, $templateId)
     {
         $params = $request->input();
+        $userName = str_replace('-', ' ', $userName);
+        $userId = optional($userRepository->getFirstBy('name', $userName))->id;
 
         if ($request->hasFile('avatar_url')) {
             $avatar = $request->avatar_url;
@@ -91,7 +93,7 @@ class UserTemplateController extends Controller
         $userInfoCvRepository->updateOrCreate(['user_id' => $userId], $params);
 
         return redirect()->route('userCv', [
-            'userId' => $userId,
+            'userName' => Str::slug($userName),
             'templateId' => $templateId
         ]);
     }
@@ -116,6 +118,7 @@ class UserTemplateController extends Controller
                 'createCv' => true,
                 'isAdmin' => true,
                 'userId' => $userId,
+                'userName' => $userName,
                 'categoryPost' => $categoryPost
             ]);
         } else {
@@ -134,12 +137,14 @@ class UserTemplateController extends Controller
     {
         $params = $request->input();
 
-        $user = $userRepository->getFirstBy('name', $params['search_by_user_name']);
-        
-        $userName = empty($user) ? null : $params['search_by_user_name'];
+        $user = $userRepository->getAll();
+        // dd($user);
+        $user = $userRepository->getBySearch($params['search_by_user_name']);
+        // dd($user);
+        // $userName = empty($user) ? null : $user->name;
 
         return view('searchResult')->with([
-            'userName' => $userName
+            'user' => $user
         ]);
     }
 }

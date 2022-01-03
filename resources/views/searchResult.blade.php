@@ -431,50 +431,54 @@
         </div>
         @endif
 
-        @if (empty($userName))
+        @if ($user->isEmpty())
         <div class="text-center text-sm text-gray-500 sm:text-left">
             Cannot find any cv of this user
         </div>
         @endif
 
-        @if (!empty($userName))
-        <div>
-            <div class="group_result">
-                <div>
-                    <span>1.</span>
-                    <span>
-                        <a href="{{ route('userCv', [
-                            'userName' => $userName,
-                            'templateId' => 1
+        @if (!$user->isEmpty())
+        <div style="margin-top: 40px;">
+            @foreach ($user as $value)
+            <div>
+                <div class="group_result">
+                    <div>
+                        <span>1.</span>
+                        <span>
+                            <a href="{{ route('userCv', [
+                                'userName' => Str::slug($value->name),
+                                'templateId' => 1
+                            ]) }}" class="design_link">{{ route('userCv', [
+                                'userName' => Str::slug($value->name),
+                                'templateId' => 1
+                            ]) }}</a>
+                        </span>
+                    </div>
+                    <div>
+                        <img src="{{ asset('images/template_image.png') }}">
+                    </div>
+                </div>
+                <div class="group_result">
+                    <div>
+                        <span>2.</span>
+                        <span>
+                            <a href="{{ route('userCv', [
+                            'userName' => Str::slug($value->name),
+                            'templateId' => 2
                         ]) }}" class="design_link">{{ route('userCv', [
-                            'userName' => $userName,
-                            'templateId' => 1
+                            'userName' => Str::slug($value->name),
+                            'templateId' => 2
                         ]) }}</a>
-                    </span>
-                </div>
-                <div>
-                    <img src="{{ asset('images/template_image.png') }}">
-                </div>
-            </div>
-            <div class="group_result">
-                <div>
-                    <span>2.</span>
-                    <span>
-                        <a href="{{ route('userCv', [
-                        'userName' => $userName,
-                        'templateId' => 2
-                    ]) }}" class="design_link">{{ route('userCv', [
-                        'userName' => $userName,
-                        'templateId' => 2
-                    ]) }}</a>
-                    </span>
-                </div>
-                <div>
-                    <img src="{{ asset('images/template_image.png') }}">
+                        </span>
+                    </div>
+                    <div>
+                        <img src="{{ asset('images/template_image.png') }}">
+                    </div>
                 </div>
             </div>
+            @endforeach
+            @endif
         </div>
-        @endif
     </div>
 
 </body>
