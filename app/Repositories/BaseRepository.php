@@ -268,4 +268,15 @@ abstract class BaseRepository
     {
         return $this->model->updateOrCreate($data, $optional);
     }
+
+    public function getBy($array)
+    {
+        $result = $this->model;
+
+        foreach ($array as $key => $value) {
+            $result = $result->where($key, $value);
+        }
+
+        return $result->get();
+    }
 }

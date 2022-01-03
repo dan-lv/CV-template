@@ -13,7 +13,9 @@
             <td>{{ $user->name }}</td>
             <td>{{ $user->email }}</td>
             <td style="text-decoration: underline; color: blue;">
-                <a href="{{ route('userCv', [$user->id, 1]) }}">{{ route('userCv', [$user->id, 1]) }}</a>
+                @if (!$user->userCvs->isEmpty())
+                <a href="{{ route('userCv', [Str::slug($user->name), 1]) }}">{{ route('userCv', [Str::slug($user->name), 1]) }}</a>
+                @endif
             </td>
             <td class="text-center">
                 <form method="POST" action="{{ route('deleteUser', $user->id) }}">

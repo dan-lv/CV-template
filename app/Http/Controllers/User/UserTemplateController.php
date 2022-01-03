@@ -10,28 +10,37 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Repositories\UserInfoCvRepository;
 use App\Repositories\UserRepository;
+use App\Repositories\CategoryRepository;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Str;
 
 class UserTemplateController extends Controller
 {
     use AuthorizesRequests, DispatchesJobs, ValidatesRequests;
 
-    public function generateTemplate($id, UserInfoCvRepository $userInfoCvRepository)
+    public function generateTemplate($id, UserInfoCvRepository $userInfoCvRepository, CategoryRepository $categoryRepository)
     {
+        if (!in_array($id, [1, 2])) return abort(404);
+
         $userId = Auth::user()->id;
 
         $userInfoData = optional($userInfoCvRepository->getFirstBy('user_id', $userId))->toArray();
+        $categoryPost = $categoryRepository->getManyBy('user_id', $userId, ['posts']);
 
         if (empty($userInfoData)) {
             $data = [
                 'templateId' => $id,
-                'createCv' => true
+                'createCv' => true,
+                'categoryPost' => $categoryPost,
+                'userId' => $userId
             ];
         } else {
             $data = array_merge($userInfoData, [
                 'templateId' => $id,
-                'createCv' => true
+                'createCv' => true,
+                'categoryPost' => $categoryPost,
+                'userId' => $userId
             ]);
         }
 
@@ -58,14 +67,16 @@ class UserTemplateController extends Controller
         $userInfoCvRepository->updateOrCreate(['user_id' => $userId], $params);
         $userName = $userRepository->find($userId)->name;
         return redirect()->route('userCv', [
-            'userName' => $userName,
+            'userName' => Str::slug($userName),
             'templateId' => $templateId
         ]);
     }
 
-    public function createCvFromAdmin(Request $request, UserInfoCvRepository $userInfoCvRepository, $userId, $templateId)
+    public function createCvFromAdmin(Request $request, UserInfoCvRepository $userInfoCvRepository, UserRepository $userRepository, $userName, $templateId)
     {
         $params = $request->input();
+        $userName = str_replace('-', ' ', $userName);
+        $userId = optional($userRepository->getFirstBy('name', $userName))->id;
 
         if ($request->hasFile('avatar_url')) {
             $avatar = $request->avatar_url;
@@ -82,29 +93,40 @@ class UserTemplateController extends Controller
         $userInfoCvRepository->updateOrCreate(['user_id' => $userId], $params);
 
         return redirect()->route('userCv', [
-            'userId' => $userId,
+            'userName' => Str::slug($userName),
             'templateId' => $templateId
         ]);
     }
 
-    public function generateCv(UserRepository $userRepository, UserInfoCvRepository $userInfoCvRepository, $userName, $templateId)
+    public function generateCv(UserRepository $userRepository, UserInfoCvRepository $userInfoCvRepository, CategoryRepository $categoryRepository, $userName, $templateId)
     {
-        $userId = $userRepository->getFirstBy('name', $userName)->id;
-        $userInfoData = $userInfoCvRepository->getFirstBy('user_id', $userId)->toArray();
+        if (!in_array($templateId, [1, 2])) return abort(404);
+        $userName = str_replace('-', ' ', $userName);
+        $userId = optional($userRepository->getFirstBy('name', $userName))->id;
+        if (empty($userId)) return abort(404);
+        $userInfoData = optional($userInfoCvRepository->getFirstBy('user_id', $userId))->toArray();
+        if (empty($userInfoData)) return abort(404);
         $storagePath = 'images/avatar/' . $userId;
+        $categoryPost = $categoryRepository->getManyBy('user_id', $userId, ['posts']);
 
-        $userInfoData['avatar_url'] = $storagePath . '/' . $userInfoData['avatar_url'];
+        if (!empty($userInfoData['avatar_url'])) {
+            $userInfoData['avatar_url'] = $storagePath . '/' . $userInfoData['avatar_url'];
+        }
         if (Auth::guard('admin')->check()) {
             $data = array_merge($userInfoData, [
                 'templateId' => $templateId,
                 'createCv' => true,
                 'isAdmin' => true,
-                'userId' => $userId
+                'userId' => $userId,
+                'userName' => $userName,
+                'categoryPost' => $categoryPost
             ]);
         } else {
             $data = array_merge($userInfoData, [
                 'templateId' => $templateId,
-                'createCv' => false
+                'createCv' => false,
+                'categoryPost' => $categoryPost,
+                'userId' => $userId
             ]);
         }
 
@@ -115,13 +137,14 @@ class UserTemplateController extends Controller
     {
         $params = $request->input();
 
-        $user = $userRepository->getFirstBy('name', $params['search_by_user_name']);
-        
-        $userName = empty($user) ? null : $params['search_by_user_name'];
+        $user = $userRepository->getAll();
+        // dd($user);
+        $user = $userRepository->getBySearch($params['search_by_user_name']);
+        // dd($user);
+        // $userName = empty($user) ? null : $user->name;
 
-        // dd($userName);
         return view('searchResult')->with([
-            'userName' => $userName
+            'user' => $user
         ]);
     }
 }

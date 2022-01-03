@@ -8,7 +8,7 @@
                 <img style="width: 200px;" id="cvo-profile-avatar" src="https://www.topcv.vn/images/default-avatar.png" value="preview_avatar" alt="avatar">
                 <input type="file" name="avatar_url"></input>
                 @else
-                <img style="width: 200px;" src="{{ asset($avatar_url) }}" value="preview_avatar" alt="avatar">
+                <img style="width: 200px;" src="{{ $avatar_url ? asset($avatar_url) : 'https://www.topcv.vn/images/default-avatar.png' }}" value="preview_avatar" alt="avatar">
                 @endif
             </div>
             <div class="cvo-profile-fullname-and-title">
@@ -178,4 +178,27 @@
             </div>
         </div>
     </div>
+    <div id="cvo-award" class="cvo-block" style="margin-left: 15px;">
+        <div class="cvo-block-header color {{$set_color_temp2 ?? '' }}"><span id="cvo-award-blocktitle">Blog</span></div>
+
+        @foreach ($categoryPost as $category)
+        @if (!$category->posts->isEmpty())
+        <div>Category: {{ $category->title }}</div>
+        <div id="award-table" class="cvo-block-body">
+            <ul>
+                @foreach ($category->posts as $post)
+                <li class="design_link" style="margin-top: 10px;">
+                    <a href="{{ route('userPost', [
+                                        'userName' => $userId,
+                                        'postId' => $post->id   
+                                    ]) }}">{{ $post->title }}</a>
+                </li>
+                @endforeach
+            </ul>
+        </div>
+        @endif
+        @endforeach
+        <div style="clear: both"></div>
+    </div>
+    <div class="section-line"></div>
 </div>

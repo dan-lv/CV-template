@@ -11,5 +11,10 @@ class UserRepository extends BaseRepository
         return \App\Models\User::class;
     }
 
-    
+    public function getBySearch($search)
+    {
+        return $this->model
+            ->where('name', 'like', '%' . $search . '%')
+            ->get();
+    }
 }
